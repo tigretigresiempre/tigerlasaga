@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selecciona una entidad financiera</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sf-font@1.0.0/sf-font.min.css">
+
+<style>
+:root {
+  --white: #ffffff;
+  --primary-color: #710084; /* color título */
+  --green-ios: #00d998;
+  --font-stack: -apple-system, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; margin:0; padding:0; }
+html, body { 
+  height:100%; 
+  font-family: var(--font-stack); 
+  background:#f9f9f9; 
+  margin:0;
+}
+
+/* Topbar */
+.topbar {
+  width:100%; 
+  height:64px; 
+  background:#fff; 
+  display:flex; 
+  align-items:center; 
+  justify-content:space-between; 
+  padding:0 16px; 
+  box-shadow:0 1px 2px rgba(0,0,0,0.1);
+}
+.title { 
+  font-size:18px; 
+  font-weight:500; 
+  color: var(--primary-color);
+}
+.icon { 
+  font-size:20px; 
+  cursor:pointer; 
+}
+
+/* Contenedor vertical */
+.container { 
+  flex:1; 
+  width:100%; 
+  min-height: calc(100vh - 64px); /* toda la pantalla menos topbar */
+  display:flex; 
+  flex-direction: column;  
+  justify-content: flex-start; 
+  align-items: center;  
+  padding:20px;
+  gap:20px;
+  background:#f9f9f9;
+  overflow-y: auto;
+}
+
+/* Botones de bancos */
+.bank-btn {
+  width: 90%;        
+  max-width: 400px;
+  padding:20px;     
+  border-radius:12px;
+  background: var(--white);  
+  border:none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  color: #000000;           /* texto negro */
+  font-size:18px;
+  font-weight:500;
+  text-align: left;          /* alineado a la izquierda */
+  padding-left: 20px;        /* espacio desde el borde izquierdo */
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.bank-btn:hover { 
+  opacity:0.9;
+}
+
+/* Animación spin */
+@keyframes spin {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="icon" onclick="window.history.back()">←</div>
+  <div class="title">Selecciona una entidad financiera</div>
+  <div class="icon" onclick="window.history.back()">✕</div>
+</header>
+
+<main class="container">
+  <button class="bank-btn destino-btn">Plin</button>
+  <button class="bank-btn destino-btn">Bim</button>
+  <button class="bank-btn destino-btn">Tunki</button>
+  <button class="bank-btn destino-btn">Agora / Oh!</button>
+  <button class="bank-btn destino-btn">BBVA Perú</button>
+  <button class="bank-btn destino-btn">BCP</button>
+</main>
+
+<!-- Popup Yapeando corregido para pantalla completa -->
+<div id="popup-validando" style="
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.3);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+">
+  <div style="
+    background: #ffffff;
+    padding: 20px 40px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    min-width: 150px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  ">
+    <div style="
+      border: 1.5px solid #ffffff;        /* más delgadito */
+      border-top: 1.5px solid #00d998;    /* color del giro */
+      border-radius: 50%;
+      width: 16px;                       /* tamaño un poquito mayor */
+      height: 16px;                      /* tamaño un poquito mayor */
+      animation: spin 2s linear infinite; /* velocidad 2s */
+      margin-bottom: 8px;
+    "></div>
+    <div style="color:#000; font-weight:400; font-size:14px; text-align:center;">Yapeando</div>
+  </div>
+</div>
+
+<script>
+// Seleccionar todos los botones de destino
+const destinos = document.querySelectorAll(".destino-btn");
+const popupValidando = document.getElementById("popup-validando");
+
+destinos.forEach(btn => {
+  btn.addEventListener("click", () => {
+    // Mostrar popup EXACTO
+    popupValidando.style.display = "flex";
+
+    // Guardar el destino y redirigir
+    setTimeout(() => {
+      localStorage.setItem('voucherDestino', btn.textContent);
+      window.location.href = 'yape.html';
+    }, 1500);
+  });
+});
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
